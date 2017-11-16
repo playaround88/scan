@@ -3,14 +3,14 @@ package com.ai.scan.redis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ai.scan.core.IDealService;
+import com.ai.scan.core.DealService;
 
 import redis.clients.jedis.Jedis;
 
 public class DealThread extends Thread {
 	private static final Logger LOG = LoggerFactory.getLogger(DealThread.class);
 	private ScanConfig config;
-	private IDealService dealService;
+	private DealService dealService;
 	// 主线程调用关闭循环，所以加volatile
 	private volatile boolean loop = true;
 

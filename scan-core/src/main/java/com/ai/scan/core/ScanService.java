@@ -8,14 +8,14 @@ import java.util.List;
  * @author wutb
  *
  */
-public interface IScanService {
+public interface ScanService {
 	/**
 	 * 获取指定条数的数据
 	 * 
 	 * @param fetchSize 期望获取的数据条数
 	 * @return
 	 */
-	List<Object> scan(int fetchSize);
+	List<? extends Object> scan(int fetchSize);
 	/**
 	 * 更新数据处理状态，更新成功返回1，其他为失败。
 	 * 只有更新成功的数据，监听线程才会调度给处理线程处理。
@@ -24,5 +24,5 @@ public interface IScanService {
 	 * @param record
 	 * @return
 	 */
-	int update(Object record);
+	int updateStatus(Object record);
 }

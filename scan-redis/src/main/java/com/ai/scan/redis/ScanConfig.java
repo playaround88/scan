@@ -1,7 +1,7 @@
 package com.ai.scan.redis;
 
-import com.ai.scan.core.IDealService;
-import com.ai.scan.core.IScanService;
+import com.ai.scan.core.DealService;
+import com.ai.scan.core.ScanService;
 
 import redis.clients.jedis.JedisPool;
 
@@ -17,7 +17,7 @@ public class ScanConfig extends com.ai.scan.core.ScanConfig{
 	
 	//方便spring直接配置
 	public ScanConfig(String identifier, int fetchSize, int poolSize, String queueName, long sleepTime, int blockTimeout,
-			IScanService scanService, IDealService dealService, JedisPool jedisPool) {
+			ScanService scanService, DealService dealService, JedisPool jedisPool) {
 		
 		super(identifier, fetchSize, poolSize, 0, sleepTime, blockTimeout,
 				scanService, dealService);

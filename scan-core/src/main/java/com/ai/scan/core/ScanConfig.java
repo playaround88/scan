@@ -20,12 +20,12 @@ public class ScanConfig{
 	private int blockTimeout = 10;
 	
 	//数据扫描和数据处理的具体实现
-	private IScanService scanService;
-	private IDealService dealService;
+	private ScanService scanService;
+	private DealService dealService;
 	
 	//方便spring直接配置
 	public ScanConfig(String identifier, int fetchSize, int poolSize, int queueSize, long sleepTime, int blockTimeout,
-			IScanService scanService, IDealService dealService) {
+			ScanService scanService, DealService dealService) {
 		super();
 		this.identifier = identifier;
 		this.fetchSize = fetchSize;
@@ -73,16 +73,16 @@ public class ScanConfig{
 	public void setBlockTimeout(int blockTimeout) {
 		this.blockTimeout = blockTimeout;
 	}
-	public IScanService getScanService() {
+	public ScanService getScanService() {
 		return scanService;
 	}
-	public void setScanService(IScanService scanService) {
+	public void setScanService(ScanService scanService) {
 		this.scanService = scanService;
 	}
-	public IDealService getDealService() {
+	public DealService getDealService() {
 		return dealService;
 	}
-	public void setDealService(IDealService dealService) {
+	public void setDealService(DealService dealService) {
 		this.dealService = dealService;
 	}
 

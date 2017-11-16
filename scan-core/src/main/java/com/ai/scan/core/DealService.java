@@ -5,7 +5,7 @@ package com.ai.scan.core;
  * @author wutb
  *
  */
-public interface IDealService {
+public interface DealService {
 	
 	void deal(Object record);
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ai.scan.core.IScanService;
+import com.ai.scan.core.ScanService;
 import com.ai.scan.util.JsonUtil;
 
 import redis.clients.jedis.Jedis;
@@ -13,7 +13,7 @@ import redis.clients.jedis.Jedis;
 public class ScanThread extends Thread{
 	private static final Logger LOG = LoggerFactory.getLogger(ScanThread.class);
 	private ScanConfig config;
-	private IScanService service;
+	private ScanService service;
 	//主线程调用关闭循环，所以加volatile
 	private volatile boolean loop=true;
 	
@@ -35,7 +35,7 @@ public class ScanThread extends Thread{
 					jedis = this.config.getJedisPool().getResource();
 				}
 				
-				List<Object> records = service.scan(this.config.getFetchSize());
+				List<? extends Object> records = service.scan(this.config.getFetchSize());
 				if(records!=null){
 					LOG.debug("{}扫描到数据{}条",config.getIdentifier(),records.size());
 				}
@@ -43,7 +43,7 @@ public class ScanThread extends Thread{
 					//返回的列表可能含有null
 					if(record==null) continue;
 					// 更新状态
-					int row = service.update(record);
+					int row = service.updateStatus(record);
 					if (row == 1) {
 						// 直接推动到队列
 						jedis.lpush(config.getQueueName(), JsonUtil.toJson(record));

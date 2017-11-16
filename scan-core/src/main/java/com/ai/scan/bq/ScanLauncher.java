@@ -1,5 +1,6 @@
 package com.ai.scan.bq;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -19,7 +20,7 @@ public class ScanLauncher {
 	private ScanConfig config;
 	private BlockingQueue<Object> queue;
 	private ScanThread scanThread;
-	private List<DealThread> workers;
+	private List<DealThread> workers=new ArrayList<>();
 	
 	public ScanLauncher(ScanConfig config){
 		this.config=config;

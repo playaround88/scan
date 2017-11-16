@@ -6,23 +6,13 @@
 		<artifactId>scan</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>scan-redis</artifactId>
+	<artifactId>scan-file</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.ai</groupId>
 			<artifactId>scan-core</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<!-- 序列化 -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
-		<!-- redis -->
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
 		</dependency>
 	</dependencies>
 </project>

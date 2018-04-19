@@ -1,6 +1,7 @@
 package com.ai.scan.bq;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class DealThread extends Thread {
 		super.run();
 		while (loop) {
 			try {
-				Object record = this.queue.take();
+				Object record = this.queue.poll(config.getBlockTimeout(), TimeUnit.SECONDS);
 				LOG.debug("{}处理线程接受到数据:{}",config.getIdentifier(), record);
 				if (record != null) {
 					dealService.deal(record);

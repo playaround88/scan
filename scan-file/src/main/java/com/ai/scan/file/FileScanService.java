@@ -2,7 +2,6 @@ package com.ai.scan.file;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
@@ -16,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import com.ai.scan.core.ScanService;
 
 /**
- * 目录文件扫描实现类 1.扫描目录符合条件的文件。 2.修改文件名称添加一个~，标识文件正在被处理。
+ * 目录文件扫描实现类 
+ * 1.扫描目录符合条件的文件。 
+ * 2.修改文件名称添加一个~，标识文件正在被处理。
  * 
  * @author Administrator
  *

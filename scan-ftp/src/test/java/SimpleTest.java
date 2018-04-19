@@ -46,7 +46,7 @@ public class SimpleTest {
 		dealService.init();
 		
 		//
-		ScanConfig config=new ScanConfig("ftp-test", 5, 2, 10, 10, 10, 
+		ScanConfig config=new ScanConfig("ftp-test", 2, 5, 5, 10, 5, 10, 
 				scanService, dealService);
 		
 		//启动扫描

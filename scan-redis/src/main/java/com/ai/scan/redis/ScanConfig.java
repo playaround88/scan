@@ -16,10 +16,10 @@ public class ScanConfig extends com.ai.scan.core.ScanConfig{
 	private JedisPool jedisPool;
 	
 	//方便spring直接配置
-	public ScanConfig(String identifier, int fetchSize, int poolSize, String queueName, long sleepTime, int blockTimeout,
+	public ScanConfig(String identifier, int scanPoolSize, int fetchSize, int dealPoolSize, String queueName, long sleepTime, int blockTimeout,
 			ScanService scanService, DealService dealService, JedisPool jedisPool) {
 		
-		super(identifier, fetchSize, poolSize, 0, sleepTime, blockTimeout,
+		super(identifier,scanPoolSize, fetchSize, dealPoolSize, 0, sleepTime, blockTimeout,
 				scanService, dealService);
 		
 		this.queueName=queueName;

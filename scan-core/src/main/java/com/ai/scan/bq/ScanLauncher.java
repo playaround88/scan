@@ -19,7 +19,7 @@ public class ScanLauncher {
 	private static Logger LOG=LoggerFactory.getLogger(ScanLauncher.class);
 	private ScanConfig config;
 	private BlockingQueue<Object> queue;
-	private ScanThread scanThread;
+	private List<ScanThread> scanThreads=new ArrayList<>();
 	private List<DealThread> workers=new ArrayList<>();
 	
 	public ScanLauncher(ScanConfig config){
@@ -32,11 +32,14 @@ public class ScanLauncher {
 		this.queue=new ArrayBlockingQueue<>(config.getQueueSize());
 		
 		LOG.info("{}启动扫描线程",config.getIdentifier());
-		scanThread=new ScanThread(config, queue);
-		scanThread.start();
+		for(int i=0; i<config.getScanPoolSize(); i++){
+			ScanThread scanThread=new ScanThread(config, queue);
+			scanThread.start();
+			this.scanThreads.add(scanThread);
+		}
 		
 		LOG.info("{}启动处理线程池",config.getIdentifier());
-		for(int i=0;i<config.getPoolSize();i++){
+		for(int i=0;i<config.getDealPoolSize();i++){
 			DealThread worker=new DealThread(config, queue);
 			worker.start();
 			workers.add(worker);
@@ -47,7 +50,9 @@ public class ScanLauncher {
 		LOG.info("关闭数据扫描任务{}",config.getIdentifier());
 		
 		LOG.info("关闭监听线程{}",config.getIdentifier());
-		this.scanThread.shutdown();
+		for(ScanThread scanThread : scanThreads){
+			scanThread.shutdown();
+		}
 		
 		LOG.info("等待队列数据处理完成或者超时{}",config.getIdentifier());
 		try {

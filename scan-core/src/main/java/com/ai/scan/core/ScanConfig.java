@@ -8,10 +8,12 @@ package com.ai.scan.core;
 public class ScanConfig{
 	//任务标识符
 	private String identifier;
+	//拉取数据线程数量
+	private int scanPoolSize = 1;
 	//扫描表，每次取数据的条数
 	private int fetchSize = 100;
 	//处理线程的个数
-	private int poolSize = 5;
+	private int dealPoolSize = 5;
 	//队列长度
 	private int queueSize = 500;
 	//当扫描不到数据，或者得到的数据小于fetchSize时，休眠时间
@@ -24,12 +26,13 @@ public class ScanConfig{
 	private DealService dealService;
 	
 	//方便spring直接配置
-	public ScanConfig(String identifier, int fetchSize, int poolSize, int queueSize, long sleepTime, int blockTimeout,
+	public ScanConfig(String identifier, int scanPoolSize, int fetchSize, int dealPoolSize, int queueSize, long sleepTime, int blockTimeout,
 			ScanService scanService, DealService dealService) {
 		super();
 		this.identifier = identifier;
+		this.scanPoolSize = scanPoolSize;
 		this.fetchSize = fetchSize;
-		this.poolSize = poolSize;
+		this.dealPoolSize = dealPoolSize;
 		this.queueSize = queueSize;
 		this.sleepTime = sleepTime;
 		this.blockTimeout = blockTimeout;
@@ -61,12 +64,23 @@ public class ScanConfig{
 	public void setSleepTime(long sleepTime) {
 		this.sleepTime = sleepTime;
 	}
-	public int getPoolSize() {
-		return poolSize;
+
+	public int getScanPoolSize() {
+		return scanPoolSize;
 	}
-	public void setPoolSize(int poolSize) {
-		this.poolSize = poolSize;
+
+	public void setScanPoolSize(int scanPoolSize) {
+		this.scanPoolSize = scanPoolSize;
 	}
+
+	public int getDealPoolSize() {
+		return dealPoolSize;
+	}
+
+	public void setDealPoolSize(int dealPoolSize) {
+		this.dealPoolSize = dealPoolSize;
+	}
+
 	public int getBlockTimeout() {
 		return blockTimeout;
 	}
@@ -88,9 +102,10 @@ public class ScanConfig{
 
 	@Override
 	public String toString() {
-		return "ScanConfig [fetchSize=" + fetchSize + ", sleepTime=" + sleepTime + ", poolSize=" + poolSize
+		return "ScanConfig [identifier=" + identifier + ", scanPoolSize=" + scanPoolSize + ", fetchSize=" + fetchSize
+				+ ", dealPoolSize=" + dealPoolSize + ", queueSize=" + queueSize + ", sleepTime=" + sleepTime
 				+ ", blockTimeout=" + blockTimeout + ", scanService=" + scanService + ", dealService=" + dealService
 				+ "]";
 	}
-	
+
 }

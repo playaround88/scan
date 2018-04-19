@@ -29,7 +29,9 @@ public class SimpleTest {
 		dealService.setLineDealService(lineDealService);
 		
 		//启动配置
-		ScanConfig config=new ScanConfig("scan-test", 5, 2, 10, 10, 10, 
+		//scanPoolSize设置为多个值时，测试并发不重复处理保证。
+		//同一个jvm内部多个线程同时获取文件读写锁，会报OverlappingFileLockException错误
+		ScanConfig config=new ScanConfig("scan-test", 1, 5, 5, 10, 10, 10, 
 				scanService, dealService);
 		
 		//启动扫描任务
